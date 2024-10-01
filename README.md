@@ -32,6 +32,7 @@ And select a specific number of samples to pre-train the model.
 
 Follow the instruction of [OpenCLIP](https://github.com/mlfoundations/open_clip) to pre-train the model.
 
+Pre-training the model on subset or full set by
 
 ```bash
 cd open_clip/src
