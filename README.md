@@ -38,7 +38,7 @@ cd open_clip/src
 torchrun --nproc_per_node=4 \
     -m training.main \
     --train-data '/data/cc12m/cc12m-train-subset.csv' \
-    --train-num-samples 10968539 \
+    --train-num-samples 5484269 \
     --model=ViT-B-16 \
     --batch-size 160 \
     --lr 1e-3 \
