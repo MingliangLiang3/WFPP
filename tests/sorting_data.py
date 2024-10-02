@@ -12,7 +12,8 @@ with open('../data/cc12m/cc12m_word_frequency_1e7.json', 'r', encoding='utf-8') 
 
 texts_sw_list = []
 for index, row in tqdm(df_cc12m.iterrows(), total=df_cc12m.shape[0]):
-    text = tokenizer.encode_text(row['caption'])
+    # text = tokenizer.encode(row['caption']) # encode text to tokens
+    text = tokenizer.encode_text(row['caption']) # encode text to words
     text = text[:30]
     word_frequency = [word_frequency_dict.get(str(word), 1) for word in text]
     word_frequency = [1 if fq < 0 else fq for fq in word_frequency]

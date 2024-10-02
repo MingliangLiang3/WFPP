@@ -11,7 +11,8 @@ tokenizer = SimpleTokenizer()
 
 def process_by_chunk(row):
     text = row[1]['caption']
-    return tokenizer.encode_text(text)
+    # return tokenizer.encode(text) # return tokens of text
+    return tokenizer.encode_text(text) # return words of text
 
 words = []
 with Pool(processes=16) as pool:
