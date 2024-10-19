@@ -25,8 +25,12 @@ We pre-train models by sampling image-text pairs sorted according to Equation 2 
 
 
 # Word-Frequency-based Image-Text Pair Pruning
-First, generate a word frequency dictionary using the script *data_counter.py*. Then, sort the text using *sorting_data.py* to create a list of the sorted text.
+First, generate a word frequency dictionary using the script *tests/data_counter.py*. 
+
+Then, sort the text using *tests/sorting_data.py* to create a list of the sorted text.
 And select a specific number of samples to pre-train the model.
+
+If you want to pre-train the model using the webdataset datatype, you can transfer the data to the webdataset datatype via *tests/wbdataset_write.py*.
 
 # Pre-training
 
@@ -38,11 +42,14 @@ Pre-training the model on subset or full set by
 cd open_clip/src
 torchrun --nproc_per_node=4 \
     -m training.main \
-    --train-data '/data/cc12m/cc12m-train-normal_sample.csv' \
+    # --train-data '/data/cc12m/cc12m-train-normal_sample.csv' 
+    --train-data '/data/cc12m/cc12m-train-{0000..****}.tar' \
     --train-num-samples 5484269 \ 
-    --model=ViT-B-16 \
+    --model ViT-B-16 \
     --batch-size 160 \
     --lr 1e-3 \
+    --wd 0.2 \
+    --epochs 30 \
     --precision amp \
     --workers 4 \
     --imagenet-val /data/imagenet/validation/
@@ -62,6 +69,8 @@ torchrun --nproc_per_node=4 \
     --pretrained /path/to/checkpoints/epoch_K.pt
     --batch-size 160 \
     --lr 1e-5 \
+    --lr-warmup-epochs 0.1 \
+    --epochs=1 \
     --precision amp \
     --workers 4 \
     --imagenet-val /data/imagenet/validation/

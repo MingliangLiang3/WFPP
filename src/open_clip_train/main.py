@@ -366,6 +366,8 @@ def main(args):
     scheduler = None
     if 'train' in data and optimizer is not None:
         total_steps = (data["train"].dataloader.num_batches // args.accum_freq) * args.epochs
+        if args.lr_warmup_epochs != 0.0:
+            args.warmup = int(total_steps * (args.lr_warmup_epochs / args.epochs))
         if args.lr_scheduler == "cosine":
             scheduler = cosine_lr(optimizer, args.lr, args.warmup, total_steps)
         elif args.lr_scheduler == "const":

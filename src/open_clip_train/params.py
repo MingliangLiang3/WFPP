@@ -141,6 +141,9 @@ def parse_args(args):
         "--warmup", type=int, default=10000, help="Number of steps to warmup for."
     )
     parser.add_argument(
+        "--lr-warmup-epochs", type=float, default=0.0, help="Number of epoch to warmup for."
+    )
+    parser.add_argument(
         "--use-bn-sync",
         default=False,
         action="store_true",
